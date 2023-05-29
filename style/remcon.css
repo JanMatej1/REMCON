@@ -1,0 +1,57 @@
+/* ---------------------
+------ Remcon CSS ------
+--------------------- */
+
+.remcon-posts {
+    display: grid;
+    grid-template-columns: 270px 270px 270px;
+    grid-gap: 20px;
+}
+
+.remcon-post {
+    width: 250px;
+    padding: 10px;
+    height: 200px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+.notification_positive, .notification_negative, .notification {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: baseline;
+}
+
+.notification_positive p, .notification_negative p, .notification p {
+    padding: 0 10px;
+    min-width: 500px;
+    width: fit-content;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: baseline;
+    background-color: rgb(239, 239, 239);
+    border: 1px solid rgb(92, 92, 92);
+    border-radius: 0 5px 5px 0;
+}
+
+.notification_positive .color, .notification_negative .color, .notification .color {
+    width: 10px;
+    height: 50px;
+    border: 1px solid rgb(92, 92, 92);
+    border-radius: 5px 0 0 5px;
+    border-right: none;
+}
+
+.notification_positive .color {
+    background-color: greenyellow;
+}
+
+.notification_negative .color {
+    background-color: red;
+}
+
+.notification .color {
+    background-color: rgb(255, 213, 47);
+}
