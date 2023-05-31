@@ -41,7 +41,7 @@ if( current_user_can('editor') || current_user_can('administrator') ) {
         curl_close($api);
 
         // checking if there is response with no errors
-        if (is_null($output['error'])) {
+        if (is_array($output) && array_key_exists('error', $output) && is_null($output['error'])) {
 
             // setuping patern
             if (isset($output['patern']['content']) and !is_null($output['patern']['content'])) {
