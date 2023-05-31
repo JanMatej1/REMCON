@@ -38,7 +38,9 @@ function last_posts() {
 
     // creating html to show up in Remcon posts
     $html = '<h1>Last 5 posts</h1><div class="remcon-posts">';
-    if (is_null($output['error'])) {
+
+    // checking if there is valid output
+    if (is_array($output) && array_key_exists('error', $output) && is_null($output['error'])) {
         // proccesing posts
         foreach ($output['posts'] as $post) {
             // geting values from current post
