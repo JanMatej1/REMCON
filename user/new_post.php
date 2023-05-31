@@ -16,10 +16,9 @@ session_start();
 if( current_user_can('editor') || current_user_can('administrator') ) {
 
     // checking if is valid post id 
-    if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
+    if (isset($_GET['post_id']) && is_numeric($_GET['post_id']) || isset($_GET['post_url']) && filter_var($_GET['post_url'], FILTER_VALIDATE_URL)) {
 
         // getting crucial values
-        $post_id = $_GET['post_id'];
         $host = get_option('remcon_server_url');
         $access_key = get_option('remcon_access_key');
 
@@ -27,11 +26,27 @@ if( current_user_can('editor') || current_user_can('administrator') ) {
         $api = curl_init();
         curl_setopt($api, CURLOPT_URL, $host . "/wp-content/plugins/remcon/server/return_post.php");
         curl_setopt($api, CURLOPT_POST, 1);
-        $params = [
-            'remcon' => 1,
-            'access_key' => $access_key,
-            'post_id' => $post_id
-        ];
+
+        if (isset($_GET['post_id'])) {
+            $params = [
+                'remcon' => 1,
+                'access_key' => $access_key,
+                'post_id' => $_GET['post_id']
+            ];
+        } else if (isset($_GET['post_url'])) {
+            $params = [
+                'remcon' => 1,
+                'access_key' => $access_key,
+                'post_url' => $_GET['post_url']
+            ];
+        } else {
+            $params = [
+                'remcon' => 1,
+                'access_key' => $access_key,
+                'post_id' => null
+            ];
+        }
+        
         curl_setopt($api, CURLOPT_POSTFIELDS, http_build_query($params));
         curl_setopt($api, CURLOPT_RETURNTRANSFER, true);
 

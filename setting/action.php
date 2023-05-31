@@ -17,7 +17,8 @@
             'access_key' => get_option('remcon_access_key'),
             'server_url' => get_option('remcon_server_url'),
             'patern' => get_option('remcon_patern'),
-            'patern_where' => get_option('remcon_patern_where')
+            'patern_where' => get_option('remcon_patern_where'),
+            'num_of_posts' => get_option('remcon_num_of_posts')
         ];
 
         /////////////////////////////
@@ -80,6 +81,18 @@
                     }
                 } else {
                     update_option('remcon_patern_where', $_POST['patern_where']);
+                }
+            }
+        }
+        // validateing "number of posts"
+        if (isset($_POST['num_of_posts']) and !is_null($_POST['num_of_posts'])) {
+            if ($data['num_of_posts'] != $_POST['num_of_posts']) {
+                if ($data['num_of_posts'] == "") {
+                    if (!add_option('remcon_num_of_posts', $_POST['num_of_posts'])) {
+                        update_option('remcon_num_of_posts', $_POST['num_of_posts']);
+                    }
+                } else {
+                    update_option('remcon_num_of_posts', $_POST['num_of_posts']);
                 }
             }
         }
