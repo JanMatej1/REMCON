@@ -89,7 +89,7 @@ if( current_user_can('editor') || current_user_can('administrator') ) {
                     ];
                 } else {
                     $postarr = [
-                        'post_content' => $output['content'] . ' ' . $output['patern']['where'],
+                        'post_content' => $output['content'],
                         'post_title' => $output['title']
                     ];
                 }
