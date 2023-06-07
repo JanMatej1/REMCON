@@ -85,14 +85,14 @@
             }
         }
         // validateing "number of posts"
-        if (isset($_POST['num_of_posts']) and !is_null($_POST['num_of_posts'])) {
+        if (isset($_POST['num_of_posts']) and !is_null($_POST['num_of_posts']) and is_numeric($_POST['num_of_posts']) and $_POST['num_of_posts'] > 0) {
             if ($data['num_of_posts'] != $_POST['num_of_posts']) {
                 if ($data['num_of_posts'] == "") {
-                    if (!add_option('remcon_num_of_posts', $_POST['num_of_posts'])) {
-                        update_option('remcon_num_of_posts', $_POST['num_of_posts']);
+                    if (!add_option('remcon_num_of_posts', (int)$_POST['num_of_posts'])) {
+                        update_option('remcon_num_of_posts', (int)$_POST['num_of_posts']);
                     }
                 } else {
-                    update_option('remcon_num_of_posts', $_POST['num_of_posts']);
+                    update_option('remcon_num_of_posts', (int)$_POST['num_of_posts']);
                 }
             }
         }

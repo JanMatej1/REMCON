@@ -18,6 +18,7 @@ function last_posts() {
     // getting crucial values
     $host = get_option('remcon_server_url');
     $access_key = get_option('remcon_access_key');
+    $num_of_posts = get_option('remcon_num_of_posts');
 
     // setuping http request
     $api = curl_init();
@@ -26,7 +27,7 @@ function last_posts() {
     $params = [
         'remcon' => 1,
         'access_key' => $access_key,
-        'num_of_posts' => 5
+        'num_of_posts' => $num_of_posts
     ];
     curl_setopt($api, CURLOPT_POSTFIELDS, http_build_query($params));
     curl_setopt($api, CURLOPT_RETURNTRANSFER, true);
@@ -37,7 +38,14 @@ function last_posts() {
     curl_close($api);
 
     // creating html to show up in Remcon posts
-    $html = '<h1>Last 5 posts</h1><div class="remcon-posts">';
+    // html form
+    $html = '<form action="'.get_site_url().'/wp-content/plugins/remcon/user/new_post.php" method="GET">
+                <label for="post_url">Add post via  URL:</label>
+                <input type="url" name="post_url" id="post_url">
+                <input type="submit">
+            </form>';
+    // html heading
+    $html .= '<h1>Last '.$num_of_posts.' posts</h1><div class="remcon-posts">';
 
     // checking if there is valid output
     if (is_array($output) && array_key_exists('error', $output) && is_null($output['error'])) {
