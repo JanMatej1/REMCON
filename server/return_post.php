@@ -26,82 +26,14 @@
 
                     // setting WP Query to get post by id
                     $post_id = $_POST['post_id'];
-                    $query = new WP_Query(['p' => $post_id]);
-
-                    // handeling the post
-                    if ($query->have_posts()) {
-                        while ($query->have_posts()) {
-
-                            // getting needed data
-                            $query->the_post();
-                            $title = get_the_title();
-                            $url = get_the_permalink();
-                            $page_content = get_the_content();
-                            $author = get_the_author();
-                            $patern = get_option('remcon_patern');
-                            $patern_where = get_option('remcon_patern_where');
-
-                            // setting data to return array
-                            $return = [
-                                'title' => $title,
-                                'content' => $page_content,
-                                'original_url' => $url,
-                                'author' => $author,
-                                'patern' => [
-                                    "content" => $patern,
-                                    "where" => $patern_where
-                                ],
-                                'error' => null
-                            ];
-
-                        }
-
-                    } else {
-
-                        // prepareing error message for: no post
-                        $error = 'There is no post with this id';
-                    }
+                    $return = remcon_get_post_by_id($post_id);
                 
                 // if there is invalid post id, checking post url
                 } else if (isset($_POST['post_url']) and is_numeric(url_to_postid($_POST['post_url']))) {
                 
                     // setting WP Query to get post by id
                     $post_id = url_to_postid($_POST['post_url']);
-                    $query = new WP_Query(['p' => $post_id]);
-
-                    // handeling the post
-                    if ($query->have_posts()) {
-                        while ($query->have_posts()) {
-
-                            // getting needed data
-                            $query->the_post();
-                            $title = get_the_title();
-                            $url = get_the_permalink();
-                            $page_content = get_the_content();
-                            $author = get_the_author();
-                            $patern = get_option('remcon_patern');
-                            $patern_where = get_option('remcon_patern_where');
-
-                            // setting data to return array
-                            $return = [
-                                'title' => $title,
-                                'content' => $page_content,
-                                'original_url' => $url,
-                                'author' => $author,
-                                'patern' => [
-                                    "content" => $patern,
-                                    "where" => $patern_where
-                                ],
-                                'error' => null
-                            ];
-
-                        }
-
-                    } else {
-
-                        // prepareing error message for: no post
-                        $error = 'There is no post with this id';
-                    }
+                    $return = remcon_get_post_by_id($post_id);
 
                 }else {
 
@@ -134,5 +66,48 @@
 
     // DIE!!!!
     die();
-    
+
+
+    function remcon_get_post_by_id($post_id) {
+
+        // setting WP Query to get post by id
+        $query = new WP_Query(['p' => $post_id]);
+
+        // handeling the post
+        if ($query->have_posts()) {
+            while ($query->have_posts()) {
+
+            // getting needed data
+            $query->the_post();
+            $title = get_the_title();
+            $url = get_the_permalink();
+            $page_content = get_the_content();                
+            $author = get_the_author();
+            $patern = get_option('remcon_patern');
+            $patern_where = get_option('remcon_patern_where');
+
+            // setting data to return array
+            $return = [
+                'title' => $title,
+                'content' => $page_content,
+                'original_url' => $url,
+                'author' => $author,
+                'patern' => [
+                    "content" => $patern,
+                    "where" => $patern_where
+                ],
+                'error' => null
+            ];
+
+            }
+
+        } else {
+
+            // prepareing error message for: no post
+            $return['error'] = 'There is no post with this id';
+        }
+
+            return  $return;
+    }
+
 ?>

@@ -111,7 +111,7 @@ function remcon_setting() {
             <label for=""access_key">Access key:</label>
             <input type="text" name="access_key" id="access_key" '.$access_key.'><br>
             <label for=""num_of_posts">Number of posts:</label>
-            <input type="number" name="num_of_posts" id="num_of_posts" '.$num_of_posts.'>
+            <input type="number" name="num_of_posts" id="num_of_posts" '.$num_of_posts.' min="0">
             <input type="submit">
         </form>
     ';
