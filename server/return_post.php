@@ -77,27 +77,27 @@
         if ($query->have_posts()) {
             while ($query->have_posts()) {
 
-            // getting needed data
-            $query->the_post();
-            $title = get_the_title();
-            $url = get_the_permalink();
-            $page_content = get_the_content();                
-            $author = get_the_author();
-            $patern = get_option('remcon_patern');
-            $patern_where = get_option('remcon_patern_where');
+                // getting needed data
+                $query->the_post();
+                $title = get_the_title();
+                $url = get_the_permalink();
+                $page_content = get_the_content();                
+                $author = get_the_author();
+                $patern = get_option('remcon_patern');
+                $patern_where = get_option('remcon_patern_where');
 
-            // setting data to return array
-            $return = [
-                'title' => $title,
-                'content' => $page_content,
-                'original_url' => $url,
-                'author' => $author,
-                'patern' => [
-                    "content" => $patern,
-                    "where" => $patern_where
-                ],
-                'error' => null
-            ];
+                // setting data to return array
+                $return = [
+                    'title' => $title,
+                    'content' => $page_content,
+                    'original_url' => $url,
+                    'author' => $author,
+                    'patern' => [
+                        "content" => $patern,
+                        "where" => $patern_where
+                    ],
+                    'error' => null
+                ];
 
             }
 
