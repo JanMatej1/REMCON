@@ -20,6 +20,10 @@ function last_posts() {
     $access_key = get_option('remcon_access_key');
     $num_of_posts = get_option('remcon_num_of_posts');
 
+    if ($num_of_posts == "") {
+        $num_of_posts = 5;
+    }
+
     // setuping http request
     $api = curl_init();
     curl_setopt($api, CURLOPT_URL, $host . "/wp-content/plugins/remcon/server/return_last.php");
